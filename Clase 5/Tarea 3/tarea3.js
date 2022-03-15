@@ -6,7 +6,7 @@
 // al apretar el botón "Calcular tiempo total", debe mostrar en un
 // <strong> pre-creado el tiempo total de los videos.
 
-document.querySelector("#crearInput").onclick = function(){
+document.querySelector("#crear-input").onclick = function(){
     
     let cantidadClases = Number(prompt("cuantas clases desea agregar?"))
 
@@ -38,15 +38,16 @@ document.querySelector("#crearInput").onclick = function(){
         nuevoInputSegundoClase.id=`segundoClase${i}`
     }
     
-    document.querySelector("#crearInput").disabled = true
+    document.querySelector("#crear-input").disabled = true
 }
 
 
 
-document.querySelector("#sumarTiempoDeClases").onclick = function(){
+document.querySelector("#sumar-tiempo-de-clases").onclick = function(){
+    inputsIndividuales = 3
 
-    let cantidadInputs = document.querySelectorAll(`input`).length
-    cantidadInputs = (cantidadInputs)/3
+    let cantidadInputs = document.querySelectorAll("input").length
+    cantidadInputs = cantidadInputs/inputsIndividuales
 
     let horasTotales = 0
     for(let i=1; i <= cantidadInputs; i++){ 
@@ -67,14 +68,14 @@ document.querySelector("#sumarTiempoDeClases").onclick = function(){
     }
     
     for(let i = 1; i < segundosTotales; i++){
-        if(segundosTotales > 60){ 
+        if(segundosTotales >= 60){ 
          segundosTotales = segundosTotales - 60
          minutosTotales = minutosTotales + 1
          }
     }
 
     for(let i = 1; i < minutosTotales; i++){
-        if(minutosTotales > 60){ 
+        if(minutosTotales >= 60){ 
             minutosTotales = minutosTotales - 60
             horasTotales = horasTotales + 1
          }
@@ -85,6 +86,6 @@ document.querySelector("#sumarTiempoDeClases").onclick = function(){
     nodoPagina.appendChild(textoFinal)
     
     textoFinal.textContent = `La cantidad de tiempo total de las clases es: ${horasTotales} horas, ${minutosTotales} minutos, ${segundosTotales} segundos`
-    document.querySelector("#sumarTiempoDeClases").disabled = true
+    document.querySelector("#sumar-tiempo-de-clases").disabled = true
     
 }

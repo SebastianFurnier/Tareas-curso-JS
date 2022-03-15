@@ -6,11 +6,11 @@
 // Y va a cambiar el <h1> para decir "Bienvenido, nombreDeUsuario"!
 
 
-document.querySelector('#Ingresar').onclick = function(){
-    const primerNombre = document.querySelector('#primerNombreUsuario').value
-    const segundoNombre = document.querySelector('#segundoNombreUsuario').value
-    const apellidoUsuario = document.querySelector('#apellidoUsuario').value
-    const edadUsuario = document.querySelector('#edadUsuario').value
+document.querySelector('#ingresar').onclick = function(){
+    const primerNombre = document.querySelector('#primer-nombre-usuario').value
+    const segundoNombre = document.querySelector('#segundo-nombre-usuario').value
+    const apellidoUsuario = document.querySelector('#apellido-usuario').value
+    const edadUsuario = document.querySelector('#edad-usuario').value
 
     let titulo = document.querySelector("h1")
     titulo.textContent = "Bienvenido " + primerNombre
@@ -21,13 +21,11 @@ document.querySelector('#Ingresar').onclick = function(){
 
 
     if (edadUsuario === "" ){ 
-    nuevoTexto.textContent = primerNombre + " " + segundoNombre + " " + apellidoUsuario
-    return false
+        nuevoTexto.textContent = primerNombre + " " + segundoNombre + " " + apellidoUsuario
+        return false
 
-} else{
-    nuevoTexto.textContent = primerNombre + " " + segundoNombre + " " + apellidoUsuario + ", " + edadUsuario + " años"
-    return false
-
-
-}   
+    }else{
+         nuevoTexto.textContent = primerNombre + " " + segundoNombre + " " + apellidoUsuario + ", " + edadUsuario + " años"
+         return false
+        }   
 }

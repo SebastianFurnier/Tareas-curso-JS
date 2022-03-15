@@ -20,7 +20,8 @@ document.querySelector("#calcular").onclick = function(){
     for(let i=0; i<arrayNumeros.length; i++){
         contador = (contador + Number(arrayNumeros[i]))
     }
-    contador = contador/arrayNumeros.length
+    let cantidadNumerosArray = arrayNumeros.length
+    contador = contador/cantidadNumerosArray
     let promedio = document.querySelector("#promedio")
     promedio.textContent = promedio.textContent + contador
 
@@ -29,12 +30,33 @@ document.querySelector("#calcular").onclick = function(){
         return a - b
       })
 
-    let numeroPequenio = document.querySelector("#numeroPequenio")
+    let numeroPequenio = document.querySelector("#numero-pequenio")
     numeroPequenio.innerText = numeroPequenio.innerText + arrayNumeros[0]
 
-    let numeroGrande = document.querySelector("#numeroGrande")
+    let numeroGrande = document.querySelector("#numero-grande")
     numeroGrande.innerText = numeroGrande.innerText + arrayNumeros[arrayNumeros.length - 1]
 
+    let numeroFrecuente = 0
+    let count = 0
+    let countActual = 0
+
+    for(let i=0; i<arrayNumeros.length; i++){
+        for(let j=i+1; j<arrayNumeros.length; j++){
+            if(arrayNumeros[i] === arrayNumeros[j]){
+                countActual ++
+                if(countActual>count){
+                    numeroFrecuente = arrayNumeros[i]
+                    count = countActual
+                }
+            }
+        }
+        countActual = 0
+
+    }
+    console.log(count)
+
+    let numFrec = document.querySelector("#numero-frecuente")
+    numFrec.innerText = numFrec.innerText + numeroFrecuente
     
     document.querySelector("#calcular").disabled = true
 }
