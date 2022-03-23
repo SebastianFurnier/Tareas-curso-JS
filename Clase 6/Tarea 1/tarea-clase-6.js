@@ -23,6 +23,8 @@ document.querySelector("#boton-siguiente").onclick = function(){
         label.innerText = `Edad del integrante ${i}: `
         input.type = "number"
         input.className = "entrada"
+
+        document.querySelector("#boton-siguiente").disabled = true
     }
     
     let botonCalcular = document.createElement("button")
@@ -78,6 +80,8 @@ document.querySelector("#boton-siguiente").onclick = function(){
         nodoMenor.appendChild(menorEdad)
         menorEdad.innerText = "La menor edad es: "
         menorEdad.textContent = menorEdad.textContent + arrayEdades[0]
+
+        document.querySelector("#boton-calcular").disabled = true
     }
 
     document.querySelector("#boton-resetear").onclick = function(){
@@ -90,5 +94,6 @@ document.querySelector("#boton-siguiente").onclick = function(){
         nodoPadre.removeChild(botonCalcular)
         nodoPadre.removeChild(botonResetear)
         document.querySelector("#cantidad-familiares").value = ""
+        document.querySelector("#boton-siguiente").disabled = false
     }
 }
