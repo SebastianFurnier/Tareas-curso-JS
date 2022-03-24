@@ -20,6 +20,7 @@ document.querySelector("#boton-agregar").onclick = function(){
     nodo.appendChild(nodoInput)
     nodoInput.appendChild(label)
     nodoInput.appendChild(input)
+
     input.type = "Number"
     input.id = `input-familiar${contador}`
     label.id = `label-familiar${contador}`
@@ -27,6 +28,10 @@ document.querySelector("#boton-agregar").onclick = function(){
 
     document.querySelector("#boton-quitar").disabled = false
     document.querySelector("#boton-calcular").disabled = false
+
+    document.querySelector("#label-salario-promedio").innerText = "El promedio de salarios es: "
+    document.querySelector("#label-mayor-salario").innerText = "El mayor salario anual es: "
+    document.querySelector("#label-menor-salario").innerText = "El menor salario anual es: "
 }
 
 document.querySelector("#boton-quitar").onclick = function(){
@@ -70,11 +75,11 @@ document.querySelector("#boton-calcular").onclick = function(){
     for(let i=0; i<arraySalarios.length; i++){
         contadorSalarios = arraySalarios[i] + contadorSalarios
     }
+
     let cantidadSalarios = arraySalarios.length
     let promedioSal = (contadorSalarios/cantidadSalarios)
-
-    let salarioPromedio = document.querySelector("#label-salario-promedio")
-    salarioPromedio.innerText = salarioPromedio.innerText + promedioSal
+    let labelSalarioPromedio = document.querySelector("#label-salario-promedio")
+    labelSalarioPromedio.innerText =labelSalarioPromedio.innerText + promedioSal
 
     arraySalarios.sort(function(a,b){
         return a - b
