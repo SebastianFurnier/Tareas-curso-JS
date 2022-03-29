@@ -9,87 +9,90 @@ Punto bonus: si hay inputs vacíos, ignorarlos en el cálculo (no contarlos como
 let nodo = document.querySelector("body")
 let contador = 0
 
-document.querySelector("#boton-agregar").onclick = function(){
+document.querySelector("#boton-agregar").onclick = function () {
+  contador++;
 
-    contador++
+  let nodoInput = document.createElement("div");
+  let label = document.createElement("label");
+  let sueldoDeFamiliares = document.createElement("input");
 
-    let nodoInput = document.createElement("div")
-    let label = document.createElement("label")
-    let input = document.createElement("input")
+  nodo.appendChild(nodoInput);
+  nodoInput.appendChild(label);
+  nodoInput.appendChild(sueldoDeFamiliares);
 
-    nodo.appendChild(nodoInput)
-    nodoInput.appendChild(label)
-    nodoInput.appendChild(input)
+  sueldoDeFamiliares.type = "Number";
+  sueldoDeFamiliares.id = `input-sueldo-familiar${contador}`;
+  label.id = `label-familiar${contador}`;
+  label.innerText = `Familiar${contador}`;
 
-    input.type = "Number"
-    input.id = `input-familiar${contador}`
-    label.id = `label-familiar${contador}`
-    label.innerText = `Familiar${contador}`
+  document.querySelector("#boton-quitar").disabled = false;
+  document.querySelector("#boton-calcular").disabled = false;
 
-    document.querySelector("#boton-quitar").disabled = false
-    document.querySelector("#boton-calcular").disabled = false
+  document.querySelector("#label-salario-promedio").innerText =
+    "El promedio de salarios es: ";
+  document.querySelector("#label-mayor-salario").innerText =
+    "El mayor salario anual es: ";
+  document.querySelector("#label-menor-salario").innerText =
+    "El menor salario anual es: ";
+};
 
-    document.querySelector("#label-salario-promedio").innerText = "El promedio de salarios es: "
-    document.querySelector("#label-mayor-salario").innerText = "El mayor salario anual es: "
-    document.querySelector("#label-menor-salario").innerText = "El menor salario anual es: "
-}
+document.querySelector("#boton-quitar").onclick = function () {
+  let ultimoLabel = document.getElementById(`label-familiar${contador}`);
+  let padreLabel = ultimoLabel.parentNode;
+  padreLabel.removeChild(ultimoLabel);
 
-document.querySelector("#boton-quitar").onclick = function(){
+  let ultimoInput = document.getElementById(`input-sueldo-familiar${contador}`);
+  let padreInput = ultimoInput.parentNode;
+  padreInput.removeChild(ultimoInput);
 
-    let ultimoLabel = document.getElementById(`label-familiar${contador}`)
-    let padreLabel = ultimoLabel.parentNode
-    padreLabel.removeChild(ultimoLabel)
+  contador--;
 
-    let ultimoInput = document.getElementById(`input-familiar${contador}`)
-    let padreInput = ultimoInput.parentNode
-    padreInput.removeChild(ultimoInput)
+  document.querySelector("#boton-calcular").disabled = false;
 
-    contador --
+  if (contador === 0) {
+    document.querySelector("#boton-quitar").disabled = true;
+    document.querySelector("#boton-calcular").disabled = true;
+  }
 
-    document.querySelector("#boton-calcular").disabled = false
+  document.querySelector("#label-salario-promedio").innerText =
+    "El promedio de salarios es: ";
+  document.querySelector("#label-mayor-salario").innerText =
+    "El mayor salario anual es: ";
+  document.querySelector("#label-menor-salario").innerText =
+    "El menor salario anual es: ";
+};
 
-    if(contador === 0){
-        document.querySelector("#boton-quitar").disabled = true
-        document.querySelector("#boton-calcular").disabled = true
+document.querySelector("#boton-calcular").onclick = function () {
+  let arraySalarios = [];
+  let salarios = document.querySelectorAll("input");
+
+  for (let i = 0; i < salarios.length; i++) {
+    if (salarios[i].value > 0) {
+      arraySalarios.push(Number(salarios[i].value));
     }
+  }
 
-    document.querySelector("#label-salario-promedio").innerText = "El promedio de salarios es: "
-    document.querySelector("#label-mayor-salario").innerText = "El mayor salario anual es: "
-    document.querySelector("#label-menor-salario").innerText = "El menor salario anual es: "
-    
-}
+  let contadorSalarios = 0;
 
-document.querySelector("#boton-calcular").onclick = function(){
-    
-    let arraySalarios=[]
-    let salarios = document.querySelectorAll("input")
-    
-    for(let i=0; i < salarios.length; i++){
-        if(salarios[i].value > 0){
-            arraySalarios.push(Number(salarios[i].value))
-        }
-    }
+  for (let i = 0; i < arraySalarios.length; i++) {
+    contadorSalarios = arraySalarios[i] + contadorSalarios;
+  }
 
-    let contadorSalarios=0
+  let cantidadSalarios = arraySalarios.length;
+  let promedioSal = contadorSalarios / cantidadSalarios;
+  let labelSalarioPromedio = document.querySelector("#label-salario-promedio");
+  labelSalarioPromedio.innerText = labelSalarioPromedio.innerText + promedioSal;
 
-    for(let i=0; i<arraySalarios.length; i++){
-        contadorSalarios = arraySalarios[i] + contadorSalarios
-    }
+  arraySalarios.sort(function (a, b) {
+    return a - b;
+  });
 
-    let cantidadSalarios = arraySalarios.length
-    let promedioSal = (contadorSalarios/cantidadSalarios)
-    let labelSalarioPromedio = document.querySelector("#label-salario-promedio")
-    labelSalarioPromedio.innerText =labelSalarioPromedio.innerText + promedioSal
+  let mayorSalario = document.querySelector("#label-mayor-salario");
+  mayorSalario.innerText =
+    mayorSalario.innerText + arraySalarios[arraySalarios.length - 1];
 
-    arraySalarios.sort(function(a,b){
-        return a - b
-    })
+  let menorSalario = document.querySelector("#label-menor-salario");
+  menorSalario.innerText = menorSalario.innerText + arraySalarios[0];
 
-    let mayorSalario = document.querySelector("#label-mayor-salario")
-    mayorSalario.innerText = mayorSalario.innerText + arraySalarios[arraySalarios.length - 1]
-
-    let menorSalario = document.querySelector("#label-menor-salario")
-    menorSalario.innerText = menorSalario.innerText + arraySalarios[0]
-    
-    document.querySelector("#boton-calcular").disabled = true
-}
+  document.querySelector("#boton-calcular").disabled = true;
+};
