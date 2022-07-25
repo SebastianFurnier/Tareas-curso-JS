@@ -8,10 +8,26 @@ Punto bonus: Crear un botón para "empezar de nuevo" que empiece el proceso nuev
 
 function validarFormulario(){
     const numeroFamiliares = document.querySelector("#cantidad-familiares") 
-    const esExito = validarCantidadFamiliares(numeroFamiliares) === ''
+    const esExito = validarCantidadFamiliares(numeroFamiliares.value) === ''
+
+    const objError = {
+        errorInput: validarCantidadFamiliares(numeroFamiliares.value)
+    }
 
     if(esExito){
+        const nodoError = document.querySelector('#errores')
+        nodoError.style = 'display: none'
         edadFamiliares()
+    }else{
+        const nodoError = document.querySelector('#errores')
+        const llaveError = Object.keys(objError)
+
+        nodoError.style = ''
+        for(i=0; i< llaveError.length; i++){
+            console.log(llaveError[i])
+            nodoError.innerText = objError.llaveError[i];
+        }
+        
     }
 }
 
