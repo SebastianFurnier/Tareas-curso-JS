@@ -95,4 +95,6 @@ document.querySelector("#boton-calcular").onclick = function () {
   menorSalario.innerText = menorSalario.innerText + arraySalarios[0];
 
   document.querySelector("#boton-calcular").disabled = true;
+
 };
+
